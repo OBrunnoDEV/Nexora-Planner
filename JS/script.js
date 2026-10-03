@@ -4,10 +4,39 @@ const campoNome = document.getElementById("nometarefa");
 const campoData = document.getElementById("datalimite");
 const campoDuracao = document.getElementById("duracao");
 const campoPrioridade = document.getElementById("prioridade");
+const campoCategoria = document.getElementById("categoria");
+const campoTipo = document.getElementById("tipo");
 const listaTarefas = document.getElementById("listaTarefas");
 const listaVazia = document.getElementById("listaVazia");
 const mensagem = document.getElementById("mensagem");
 const prioridades = { baixa: "Baixa", media: "Média", alta: "Alta" };
+
+const CATEGORIAS_TAREFA = {
+    faculdade: "Faculdade", trabalho: "Trabalho", pessoal: "Pessoal",
+    casa: "Casa", saude: "Saúde", outros: "Outros"
+};
+const TIPOS_TAREFA = {
+    tarefa: "Tarefa", compra: "Compra", compromisso: "Compromisso pontual", pendencia: "Pendência"
+};
+const PADROES_TAREFA = { categoria: "outros", tipo: "tarefa" };
+
+// Centraliza a compatibilidade sem regravar tarefas antigas ao carregar.
+function classificacaoTarefa(tarefa) {
+    return {
+        categoria: Object.hasOwn(CATEGORIAS_TAREFA, tarefa.categoria)
+            ? tarefa.categoria : PADROES_TAREFA.categoria,
+        tipo: Object.hasOwn(TIPOS_TAREFA, tarefa.tipo)
+            ? tarefa.tipo : PADROES_TAREFA.tipo
+    };
+}
+
+function criarClassificacaoTarefa(tarefa) {
+    const { categoria, tipo } = classificacaoTarefa(tarefa);
+    const texto = document.createElement("p");
+    texto.className = "classificacao-tarefa";
+    texto.textContent = `Categoria: ${CATEGORIAS_TAREFA[categoria]} · Tipo: ${TIPOS_TAREFA[tipo]}`;
+    return texto;
+}
 
 let tarefas = carregarTarefas();
 
@@ -99,7 +128,7 @@ function renderizarTarefas() {
         });
 
         acoes.append(rotulo, remover);
-        item.append(titulo, detalhes, acoes);
+        item.append(titulo, detalhes, criarClassificacaoTarefa(tarefa), acoes);
         listaTarefas.append(item);
     });
 }
@@ -118,6 +147,8 @@ formTarefa.addEventListener("submit", (evento) => {
         dataLimite: campoData.value,
         duracao: Number(campoDuracao.value),
         prioridade: campoPrioridade.value,
+        categoria: campoCategoria.value,
+        tipo: campoTipo.value,
         concluida: false
     };
 

@@ -98,7 +98,7 @@ function criarItemPlanejado(tarefa, data, periodo) {
     const duracao = document.createElement("span");
     duracao.textContent = `${tarefa.duracao} min`;
     detalhes.append(prioridade, prazo, duracao);
-    item.append(nome, detalhes);
+    item.append(nome, detalhes, criarClassificacaoTarefa(tarefa));
     if (!periodo) {
         const motivo = document.createElement("p");
         motivo.textContent = "Sem janela contínua suficiente para esta tarefa.";
