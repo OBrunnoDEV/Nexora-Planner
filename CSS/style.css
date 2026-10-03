@@ -507,3 +507,35 @@ input:focus-visible, select:focus-visible, button:focus-visible {
     font-size: 13px;
     overflow-wrap: anywhere;
 }
+
+/* Visões afetam somente a lista, com indicação discreta da seleção. */
+.visoes-tarefas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.visoes-tarefas button {
+    padding: 8px 14px;
+    background: transparent;
+    color: var(--secundario);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.visoes-tarefas button:hover {
+    background: var(--superficie);
+    color: var(--texto);
+}
+
+.visoes-tarefas button[aria-pressed="true"] {
+    background: #30362e;
+    border-color: #647252;
+    color: var(--destaque);
+}
+
+.status-atrasada {
+    color: #edb5ae;
+    font-size: 13px;
+}

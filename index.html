@@ -66,7 +66,14 @@
         <p id="mensagem" role="status" aria-live="polite"></p>
         <section class="area-tarefas" aria-labelledby="tituloTarefas">
             <h2 id="tituloTarefas">Tarefas</h2>
-            <p id="listaVazia">Nenhuma tarefa cadastrada.</p>
+            <div class="visoes-tarefas" role="group" aria-label="Visões das tarefas">
+                <button type="button" data-visao="hoje" aria-pressed="false" aria-controls="listaTarefas">Hoje</button>
+                <button type="button" data-visao="pendentes" aria-pressed="true" aria-controls="listaTarefas">Pendentes</button>
+                <button type="button" data-visao="compras" aria-pressed="false" aria-controls="listaTarefas">Compras</button>
+                <button type="button" data-visao="faculdade" aria-pressed="false" aria-controls="listaTarefas">Faculdade</button>
+                <button type="button" data-visao="concluidas" aria-pressed="false" aria-controls="listaTarefas">Concluídas</button>
+            </div>
+            <p id="listaVazia" role="status">Nenhuma tarefa cadastrada.</p>
             <ul id="listaTarefas"></ul>
         </section>
         <section class="agenda-fixa" aria-labelledby="tituloAgenda">

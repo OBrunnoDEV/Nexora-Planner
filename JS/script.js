@@ -38,6 +38,42 @@ function criarClassificacaoTarefa(tarefa) {
     return texto;
 }
 
+const MENSAGENS_VISOES = {
+    hoje: "Nenhuma tarefa pendente para hoje ou atrasada.",
+    pendentes: "Nenhuma tarefa pendente.",
+    compras: "Nenhuma compra cadastrada.",
+    faculdade: "Nenhuma tarefa de Faculdade cadastrada.",
+    concluidas: "Nenhuma tarefa concluída."
+};
+let visaoAtual = "pendentes";
+const botoesVisoes = [...document.querySelectorAll("[data-visao]")];
+
+function dataAtualTarefas() {
+    const hoje = new Date();
+    return `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, "0")}-${String(hoje.getDate()).padStart(2, "0")}`;
+}
+
+// Filtra apenas a exibição; o planejador continua recebendo todas as tarefas.
+function filtrarTarefas(todasTarefas, visao, hoje = dataAtualTarefas()) {
+    return todasTarefas.filter((tarefa) => {
+        const { categoria, tipo } = classificacaoTarefa(tarefa);
+        switch (visao) {
+            case "hoje": return !tarefa.concluida && tarefa.dataLimite <= hoje;
+            case "compras": return tipo === "compra";
+            case "faculdade": return categoria === "faculdade";
+            case "concluidas": return tarefa.concluida;
+            default: return !tarefa.concluida;
+        }
+    });
+}
+
+botoesVisoes.forEach((botao) => {
+    botao.addEventListener("click", () => {
+        visaoAtual = botao.dataset.visao;
+        renderizarTarefas();
+    });
+});
+
 let tarefas = carregarTarefas();
 
 function carregarTarefas() {
@@ -83,9 +119,15 @@ function formatarData(data) {
 
 function renderizarTarefas() {
     listaTarefas.replaceChildren();
-    listaVazia.hidden = tarefas.length > 0;
+    const hoje = dataAtualTarefas();
+    const tarefasVisiveis = filtrarTarefas(tarefas, visaoAtual, hoje);
+    listaVazia.hidden = tarefasVisiveis.length > 0;
+    listaVazia.textContent = MENSAGENS_VISOES[visaoAtual];
+    botoesVisoes.forEach((botao) => {
+        botao.setAttribute("aria-pressed", String(botao.dataset.visao === visaoAtual));
+    });
 
-    tarefas.forEach((tarefa) => {
+    tarefasVisiveis.forEach((tarefa) => {
         const item = document.createElement("li");
         item.className = tarefa.concluida ? "tarefa concluida" : "tarefa";
 
@@ -102,6 +144,12 @@ function renderizarTarefas() {
         prioridade.className = `prioridade prioridade-${tarefa.prioridade}`;
         prioridade.textContent = `Prioridade: ${prioridades[tarefa.prioridade]}`;
         detalhes.append(prazo, duracao, prioridade);
+        if (!tarefa.concluida && tarefa.dataLimite < hoje) {
+            const atraso = document.createElement("span");
+            atraso.className = "status-atrasada";
+            atraso.textContent = "Atrasada";
+            detalhes.append(atraso);
+        }
 
         const acoes = document.createElement("div");
         acoes.className = "acoes";
