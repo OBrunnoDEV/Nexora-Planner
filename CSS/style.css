@@ -384,3 +384,87 @@ input:focus-visible, select:focus-visible, button:focus-visible {
         grid-template-columns: minmax(0, 1fr);
     }
 }
+
+/* Disponibilidade diária segue as mesmas superfícies e espaçamentos. */
+.disponibilidade {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--divisor);
+}
+
+.campo-data-analise {
+    max-width: 280px;
+}
+
+#resumoDia {
+    margin: 16px 0 24px;
+    color: var(--secundario);
+}
+
+.periodos-dia {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    background: var(--lista);
+    padding: 24px;
+    border-radius: 8px;
+}
+
+.periodos-dia h3 {
+    font-size: 17px;
+    font-weight: 600;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--divisor);
+}
+
+.lista-periodos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lista-periodos li {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--divisor);
+    overflow-wrap: anywhere;
+}
+
+.lista-periodos li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.lista-periodos strong {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.livres strong {
+    color: var(--destaque);
+}
+
+.ocupados strong {
+    color: #deca9b;
+}
+
+.lista-periodos p, .estado-periodos {
+    color: var(--secundario);
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.estado-periodos {
+    padding-top: 8px;
+}
+
+@media (max-width: 720px) {
+    .periodos-dia {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+        padding: 20px;
+    }
+}
+
+.periodos-dia[hidden] {
+    display: none;
+}

@@ -6,6 +6,7 @@
     <title>Nexora Planner</title>
     <link rel="stylesheet" href="CSS/style.css">
     <script src="JS/script.js" defer></script>
+    <script src="JS/disponibilidade.js" defer></script>
 </head>
 <body>
     <main>
@@ -86,6 +87,27 @@
                 <p id="horariosVazios">Nenhum horário bloqueado cadastrado.</p>
                 <ul id="listaHorarios"></ul>
             </section>
+        </section>
+        <section class="disponibilidade" aria-labelledby="tituloDisponibilidade">
+            <h2 id="tituloDisponibilidade">Disponibilidade diária</h2>
+            <p class="descricao-agenda">Consulte os períodos livres e ocupados entre 08:00 e 23:00. As tarefas não entram nesta análise.</p>
+            <div class="campo campo-data-analise">
+                <label for="dataAnalise">Data para análise</label>
+                <input id="dataAnalise" type="date" required aria-describedby="resumoDia">
+            </div>
+            <p id="resumoDia" role="status" aria-live="polite"></p>
+            <div id="resultadoDisponibilidade" class="periodos-dia">
+                <section aria-labelledby="tituloOcupados">
+                    <h3 id="tituloOcupados">Horários ocupados</h3>
+                    <p id="semOcupados" class="estado-periodos">Nenhum compromisso nesta janela.</p>
+                    <ul id="periodosOcupados" class="lista-periodos ocupados"></ul>
+                </section>
+                <section aria-labelledby="tituloLivres">
+                    <h3 id="tituloLivres">Horários livres</h3>
+                    <p id="semLivres" class="estado-periodos">Não há disponibilidade nesta janela.</p>
+                    <ul id="periodosLivres" class="lista-periodos livres"></ul>
+                </section>
+            </div>
         </section>
     </main>
 </body>
