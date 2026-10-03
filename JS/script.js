@@ -33,7 +33,7 @@ function tarefaValida(tarefa) {
         && typeof tarefa.concluida === "boolean";
 }
 
-// Só atualiza a página depois que a alteração estiver salva.
+// so atualiza a pagina depois que a alteração tiver salva
 function salvarTarefas(novasTarefas) {
     try {
         localStorage.setItem(CHAVE_ARMAZENAMENTO, JSON.stringify(novasTarefas));
@@ -64,7 +64,15 @@ function renderizarTarefas() {
         titulo.textContent = tarefa.nome;
 
         const detalhes = document.createElement("p");
-        detalhes.textContent = `Data limite: ${formatarData(tarefa.dataLimite)} | Duração: ${tarefa.duracao} min | Prioridade: ${prioridades[tarefa.prioridade]}`;
+        detalhes.className = "detalhes-tarefa";
+        const prazo = document.createElement("span");
+        prazo.textContent = `Data limite: ${formatarData(tarefa.dataLimite)}`;
+        const duracao = document.createElement("span");
+        duracao.textContent = `Duração: ${tarefa.duracao} min`;
+        const prioridade = document.createElement("span");
+        prioridade.className = `prioridade prioridade-${tarefa.prioridade}`;
+        prioridade.textContent = `Prioridade: ${prioridades[tarefa.prioridade]}`;
+        detalhes.append(prazo, duracao, prioridade);
 
         const acoes = document.createElement("div");
         acoes.className = "acoes";
@@ -125,3 +133,4 @@ formTarefa.addEventListener("submit", (evento) => {
 });
 
 renderizarTarefas();
+

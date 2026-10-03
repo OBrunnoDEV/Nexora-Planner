@@ -1,49 +1,243 @@
+/* Paleta neutra; cores discretas identificam ação principal e prioridades. */
+:root {
+    color-scheme: dark;
+    --fundo: #141619;
+    --superficie: #24282d;
+    --lista: #1b1e22;
+    --campo: #181b1f;
+    --borda: #414851;
+    --divisor: #343a42;
+    --texto: #f0f2f4;
+    --secundario: #b6bdc6;
+    --destaque: #b6d58a;
+    --texto-destaque: #1c2810;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 24px;
-    color: #222;
-    background: #fff;
+    margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
 }
 
 main {
-    max-width: 720px;
+    width: min(100% - 64px, 960px);
     margin: 0 auto;
+    padding: 48px 0 64px;
 }
 
-form {
+h1, h2, h3, p {
+    margin: 0;
+}
+
+.cabecalho {
+    margin-bottom: 32px;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 650;
+    letter-spacing: -0.6px;
+    line-height: 1.3;
+}
+
+.cabecalho p {
+    margin-top: 8px;
+    color: var(--secundario);
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Escala de espaçamento: 8, 16, 24 e 32px. */
+#formTarefa {
     display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    padding: 24px;
+    background: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+}
+
+#tituloFormulario, .campo-nome, .acao-formulario {
+    grid-column: 1 / -1;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    max-width: 400px;
+    min-width: 0;
+}
+
+.campo label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #d0d5dc;
 }
 
 input, select, button {
     font: inherit;
-    padding: 8px;
 }
 
-button, input[type="checkbox"] {
+.campo input, .campo select {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 12px;
+    color: var(--texto);
+    background: var(--campo);
+    border: 1px solid var(--borda);
+    border-radius: 5px;
+    line-height: 1.5;
+}
+
+.campo select {
     cursor: pointer;
+}
+
+.campo input:hover, .campo select:hover {
+    border-color: #6c7682;
+}
+
+.campo input:focus, .campo select:focus {
+    border-color: var(--destaque);
+}
+
+input::placeholder {
+    color: #a0a8b3;
+    opacity: 1;
+}
+
+button {
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+#btnAdicionar {
+    min-height: 46px;
+    padding: 11px 24px;
+    background: var(--destaque);
+    color: var(--texto-destaque);
+}
+
+#btnAdicionar:hover {
+    background: #c3df9d;
+}
+
+#btnAdicionar:active {
+    background: #a7c77b;
+}
+
+input:focus-visible, select:focus-visible, button:focus-visible {
+    outline: 2px solid var(--destaque);
+    outline-offset: 3px;
+}
+
+#mensagem {
+    color: #f2ba9d;
+    margin-top: 16px;
+}
+
+#mensagem:empty {
+    margin: 0;
+}
+
+/* Uma superfície para a lista inteira, sem cards individuais. */
+.area-tarefas {
+    margin-top: 32px;
+    background: var(--lista);
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.area-tarefas h2 {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--divisor);
+}
+
+#listaVazia {
+    padding: 24px 0 8px;
+    color: var(--secundario);
 }
 
 #listaTarefas {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .tarefa {
-    border: 1px solid #ccc;
-    padding: 12px;
-    margin-bottom: 12px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--divisor);
     overflow-wrap: anywhere;
 }
 
+.tarefa:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
 .tarefa h3 {
-    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.detalhes-tarefa {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--secundario);
+}
+
+/* O texto identifica a prioridade mesmo sem distinguir as cores. */
+.prioridade {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.prioridade-baixa {
+    color: #b6bdc6;
+    background: #292e35;
+}
+
+.prioridade-media {
+    color: #deca9b;
+    background: #353025;
+    font-weight: 500;
+}
+
+.prioridade-alta {
+    color: #edb5ae;
+    background: #3e2c2c;
+    font-weight: 600;
 }
 
 .tarefa.concluida h3 {
     text-decoration: line-through;
-    color: #666;
+    color: var(--secundario);
+    font-weight: 400;
 }
 
 .acoes {
@@ -51,8 +245,69 @@ button, input[type="checkbox"] {
     align-items: center;
     flex-wrap: wrap;
     gap: 16px;
+    margin-top: 16px;
+    font-size: 14px;
 }
 
-#mensagem {
-    color: #943000;
+.acoes label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    color: var(--secundario);
+    cursor: pointer;
+}
+
+.acoes label:hover {
+    color: var(--texto);
+}
+
+.acoes input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: var(--destaque);
+    cursor: pointer;
+}
+
+.acoes button {
+    padding: 8px 12px;
+    background: transparent;
+    color: var(--secundario);
+    font-weight: 400;
+}
+
+.acoes button:hover {
+    color: #edb5ae;
+    background: #35282a;
+}
+
+/* Ajuste básico para janelas menores, mantendo a ordem dos campos. */
+@media (max-width: 720px) {
+    main {
+        width: calc(100% - 32px);
+        padding: 32px 0 40px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    #formTarefa {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 20px;
+        gap: 16px;
+    }
+
+    #btnAdicionar {
+        width: 100%;
+    }
+
+    .area-tarefas {
+        padding: 20px;
+    }
+
+    .detalhes-tarefa {
+        gap: 8px 16px;
+    }
 }

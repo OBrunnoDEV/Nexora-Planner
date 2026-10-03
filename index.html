@@ -9,31 +9,40 @@
 </head>
 <body>
     <main>
-        <h1>Nexora Planner</h1>
-        <p>Sistema de planejamento e gerenciamento de tarefas</p>
+        <header class="cabecalho">
+            <h1>Nexora Planner</h1>
+            <p>Sistema de planejamento e gerenciamento de tarefas</p>
+        </header>
 
-        <form id="formTarefa">
-            <label for="nometarefa">Nome da tarefa:</label>
-            <input type="text" id="nometarefa" placeholder="Digite o nome da tarefa" required>
-
-            <label for="datalimite">Data limite:</label>
-            <input type="date" id="datalimite" required>
-
-            <label for="duracao">Duração estimada em minutos:</label>
-            <input type="number" id="duracao" placeholder="Duração estimada" min="1" step="1" required>
-
-            <label for="prioridade">Prioridade:</label>
-            <select id="prioridade">
-                <option value="baixa">Baixa</option>
-                <option value="media">Média</option>
-                <option value="alta">Alta</option>
-            </select>
-
-            <button id="btnAdicionar" type="submit">Adicionar tarefa</button>
+        <form id="formTarefa" aria-labelledby="tituloFormulario">
+            <h2 id="tituloFormulario">Nova tarefa</h2>
+            <div class="campo campo-nome">
+                <label for="nometarefa">Nome da tarefa</label>
+                <input type="text" id="nometarefa" placeholder="Digite o nome da tarefa" required>
+            </div>
+            <div class="campo">
+                <label for="datalimite">Data limite</label>
+                <input type="date" id="datalimite" required>
+            </div>
+            <div class="campo">
+                <label for="duracao">Duração estimada (min)</label>
+                <input type="number" id="duracao" placeholder="Duração estimada" min="1" step="1" required>
+            </div>
+            <div class="campo">
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade">
+                    <option value="baixa">Baixa</option>
+                    <option value="media">Média</option>
+                    <option value="alta">Alta</option>
+                </select>
+            </div>
+            <div class="acao-formulario">
+                <button id="btnAdicionar" type="submit">Adicionar tarefa</button>
+            </div>
         </form>
 
         <p id="mensagem" role="status" aria-live="polite"></p>
-        <section aria-labelledby="tituloTarefas">
+        <section class="area-tarefas" aria-labelledby="tituloTarefas">
             <h2 id="tituloTarefas">Tarefas</h2>
             <p id="listaVazia">Nenhuma tarefa cadastrada.</p>
             <ul id="listaTarefas"></ul>
