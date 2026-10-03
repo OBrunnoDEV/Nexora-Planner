@@ -1,16 +1,48 @@
 // Cálculo puro: não altera tarefas, agenda ou armazenamento.
-const PESOS_PRIORIDADE = { alta: 0, media: 1, baixa: 2 };
+// Pontuação = urgência do prazo + prioridade manual.
+// Prazo próximo: +30 em 2 dias, +25 em 3 dias, até +5 em 7 dias;
+// a partir de 8 dias, apenas a prioridade manual contribui.
+const PESOS_PLANEJAMENTO = {
+    atrasada: 100,
+    prazoHoje: 70,
+    prazoAmanha: 40,
+    prazoProximo: 30,
+    reducaoPorDia: 5,
+    prioridade: { alta: 30, media: 15, baixa: 5 }
+};
+
+function diferencaDiasPrazo(prazo, data) {
+    // Usa dias de calendário em UTC: não depende de horário ou horário de verão.
+    const numeroDia = (valor) => {
+        const [ano, mes, dia] = valor.split("-").map(Number);
+        const calendario = new Date(0);
+        calendario.setUTCFullYear(ano, mes - 1, dia);
+        calendario.setUTCHours(0, 0, 0, 0);
+        return calendario.getTime() / 86400000;
+    };
+    return numeroDia(prazo) - numeroDia(data);
+}
+
+function calcularPontuacaoTarefa(tarefa, data) {
+    const dias = diferencaDiasPrazo(tarefa.dataLimite, data);
+    let urgencia;
+    if (dias < 0) urgencia = PESOS_PLANEJAMENTO.atrasada;
+    else if (dias === 0) urgencia = PESOS_PLANEJAMENTO.prazoHoje;
+    else if (dias === 1) urgencia = PESOS_PLANEJAMENTO.prazoAmanha;
+    else urgencia = Math.max(0, PESOS_PLANEJAMENTO.prazoProximo
+        - (dias - 2) * PESOS_PLANEJAMENTO.reducaoPorDia);
+    // Duração só desempata; nunca aumenta a pontuação de urgência.
+    return urgencia + PESOS_PLANEJAMENTO.prioridade[tarefa.prioridade];
+}
 
 function ordenarTarefasPendentes(todasTarefas, data) {
-    return todasTarefas.filter((tarefa) => !tarefa.concluida).sort((a, b) => {
-        const atrasoA = a.dataLimite < data;
-        const atrasoB = b.dataLimite < data;
-        return Number(atrasoB) - Number(atrasoA)
-            || a.dataLimite.localeCompare(b.dataLimite)
-            || PESOS_PRIORIDADE[a.prioridade] - PESOS_PRIORIDADE[b.prioridade]
-            || a.duracao - b.duracao;
-        // Empate completo mantém a ordem original do cadastro.
-    });
+    return todasTarefas.filter((tarefa) => !tarefa.concluida)
+        .map((tarefa) => ({ tarefa, pontuacao: calcularPontuacaoTarefa(tarefa, data) }))
+        .sort((a, b) => b.pontuacao - a.pontuacao
+            || a.tarefa.dataLimite.localeCompare(b.tarefa.dataLimite)
+            || a.tarefa.duracao - b.tarefa.duracao)
+        .map(({ tarefa }) => tarefa);
+    // Empate completo mantém a ordem original do cadastro.
 }
 
 function escolherJanela(janelas, duracao) {
