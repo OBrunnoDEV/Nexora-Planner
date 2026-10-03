@@ -468,3 +468,34 @@ input:focus-visible, select:focus-visible, button:focus-visible {
 .periodos-dia[hidden] {
     display: none;
 }
+
+/* Planejador: mesmas linhas e superfícies da disponibilidade. */
+.planejamento {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--divisor);
+}
+
+#resumoPlanejamento {
+    margin-bottom: 24px;
+    color: var(--secundario);
+}
+
+#resultadoPlanejamento[hidden] {
+    display: none;
+}
+
+.nome-planejado {
+    display: block;
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--texto);
+}
+
+.detalhes-planejados {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+}

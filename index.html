@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="CSS/style.css">
     <script src="JS/script.js" defer></script>
     <script src="JS/disponibilidade.js" defer></script>
+    <script src="JS/planejador.js" defer></script>
 </head>
 <body>
     <main>
@@ -106,6 +107,23 @@
                     <h3 id="tituloLivres">Horários livres</h3>
                     <p id="semLivres" class="estado-periodos">Não há disponibilidade nesta janela.</p>
                     <ul id="periodosLivres" class="lista-periodos livres"></ul>
+                </section>
+            </div>
+        </section>
+        <section class="planejamento" aria-labelledby="tituloPlanejamento">
+            <h2 id="tituloPlanejamento">Planejamento sugerido</h2>
+            <p class="descricao-agenda">Para a data selecionada acima: tarefas pendentes por atraso, prazo, prioridade e duração. Cada tarefa ocupa um período contínuo. As sugestões não concluem nem reservam tarefas.</p>
+            <p id="resumoPlanejamento" role="status" aria-live="polite"></p>
+            <div id="resultadoPlanejamento" class="periodos-dia">
+                <section aria-labelledby="tituloEncaixadas">
+                    <h3 id="tituloEncaixadas">Tarefas sugeridas</h3>
+                    <p id="semEncaixadas" class="estado-periodos"></p>
+                    <ul id="tarefasEncaixadas" class="lista-periodos livres"></ul>
+                </section>
+                <section aria-labelledby="tituloNaoEncaixadas">
+                    <h3 id="tituloNaoEncaixadas">Não encaixadas</h3>
+                    <p id="semNaoEncaixadas" class="estado-periodos">Nenhuma tarefa ficou sem horário.</p>
+                    <ul id="tarefasNaoEncaixadas" class="lista-periodos"></ul>
                 </section>
             </div>
         </section>
