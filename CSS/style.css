@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 24px;
+    color: #222;
+    background: #fff;
+}
+
+main {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+form {
+    display: grid;
+    gap: 8px;
+    max-width: 400px;
+}
+
+input, select, button {
+    font: inherit;
+    padding: 8px;
+}
+
+button, input[type="checkbox"] {
+    cursor: pointer;
+}
+
+#listaTarefas {
+    list-style: none;
+    padding: 0;
+}
+
+.tarefa {
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+.tarefa h3 {
+    margin: 0 0 8px;
+}
+
+.tarefa.concluida h3 {
+    text-decoration: line-through;
+    color: #666;
+}
+
+.acoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+#mensagem {
+    color: #943000;
+}
