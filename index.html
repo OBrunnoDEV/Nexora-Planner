@@ -47,6 +47,46 @@
             <p id="listaVazia">Nenhuma tarefa cadastrada.</p>
             <ul id="listaTarefas"></ul>
         </section>
+        <section class="agenda-fixa" aria-labelledby="tituloAgenda">
+            <h2 id="tituloAgenda">Agenda fixa</h2>
+            <p class="descricao-agenda">Cadastre os períodos em que você não está disponível para realizar tarefas.</p>
+            <form id="formHorario" aria-labelledby="tituloHorario">
+                <h3 id="tituloHorario">Novo horário bloqueado</h3>
+                <div class="campo campo-nome">
+                    <label for="nomeCompromisso">Nome do compromisso</label>
+                    <input id="nomeCompromisso" type="text" placeholder="Ex.: Estudo" required>
+                </div>
+                <div class="campo">
+                    <label for="horaInicial">Hora inicial</label>
+                    <input id="horaInicial" type="time" required>
+                </div>
+                <div class="campo">
+                    <label for="horaFinal">Hora final</label>
+                    <input id="horaFinal" type="time" required>
+                </div>
+                <fieldset class="dias-semana">
+                    <legend>Dias da semana</legend>
+                    <div class="opcoes-dias">
+                        <label><input type="checkbox" name="diaSemana" value="1"> Segunda</label>
+                        <label><input type="checkbox" name="diaSemana" value="2"> Terça</label>
+                        <label><input type="checkbox" name="diaSemana" value="3"> Quarta</label>
+                        <label><input type="checkbox" name="diaSemana" value="4"> Quinta</label>
+                        <label><input type="checkbox" name="diaSemana" value="5"> Sexta</label>
+                        <label><input type="checkbox" name="diaSemana" value="6"> Sábado</label>
+                        <label><input type="checkbox" name="diaSemana" value="0"> Domingo</label>
+                    </div>
+                </fieldset>
+                <div class="acao-formulario">
+                    <button id="btnAdicionarHorario" type="submit">Adicionar horário</button>
+                </div>
+            </form>
+            <p id="mensagemHorario" role="status" aria-live="polite"></p>
+            <section class="area-tarefas" aria-labelledby="tituloHorarios">
+                <h3 id="tituloHorarios">Horários bloqueados</h3>
+                <p id="horariosVazios">Nenhum horário bloqueado cadastrado.</p>
+                <ul id="listaHorarios"></ul>
+            </section>
+        </section>
     </main>
 </body>
 </html>

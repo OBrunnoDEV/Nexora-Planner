@@ -59,7 +59,7 @@ h2 {
 }
 
 /* Escala de espaçamento: 8, 16, 24 e 32px. */
-#formTarefa {
+#formTarefa, #formHorario {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
@@ -129,18 +129,18 @@ button {
     line-height: 1.5;
 }
 
-#btnAdicionar {
+#btnAdicionar, #btnAdicionarHorario {
     min-height: 46px;
     padding: 11px 24px;
     background: var(--destaque);
     color: var(--texto-destaque);
 }
 
-#btnAdicionar:hover {
+#btnAdicionar:hover, #btnAdicionarHorario:hover {
     background: #c3df9d;
 }
 
-#btnAdicionar:active {
+#btnAdicionar:active, #btnAdicionarHorario:active {
     background: #a7c77b;
 }
 
@@ -149,12 +149,12 @@ input:focus-visible, select:focus-visible, button:focus-visible {
     outline-offset: 3px;
 }
 
-#mensagem {
+#mensagem, #mensagemHorario {
     color: #f2ba9d;
     margin-top: 16px;
 }
 
-#mensagem:empty {
+#mensagem:empty, #mensagemHorario:empty {
     margin: 0;
 }
 
@@ -166,17 +166,17 @@ input:focus-visible, select:focus-visible, button:focus-visible {
     padding: 24px;
 }
 
-.area-tarefas h2 {
+.area-tarefas h2, #tituloHorarios {
     padding-bottom: 16px;
     border-bottom: 1px solid var(--divisor);
 }
 
-#listaVazia {
+#listaVazia, #horariosVazios {
     padding: 24px 0 8px;
     color: var(--secundario);
 }
 
-#listaTarefas {
+#listaTarefas, #listaHorarios {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -293,13 +293,13 @@ input:focus-visible, select:focus-visible, button:focus-visible {
         font-size: 24px;
     }
 
-    #formTarefa {
+    #formTarefa, #formHorario {
         grid-template-columns: minmax(0, 1fr);
         padding: 20px;
         gap: 16px;
     }
 
-    #btnAdicionar {
+    #btnAdicionar, #btnAdicionarHorario {
         width: 100%;
     }
 
@@ -309,5 +309,78 @@ input:focus-visible, select:focus-visible, button:focus-visible {
 
     .detalhes-tarefa {
         gap: 8px 16px;
+    }
+}
+
+/* Agenda fixa: reutiliza os controles e as linhas da lista de tarefas. */
+.agenda-fixa {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--divisor);
+}
+
+.descricao-agenda {
+    margin: 8px 0 24px;
+    color: var(--secundario);
+}
+
+#formHorario {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#tituloHorario, .dias-semana {
+    grid-column: 1 / -1;
+}
+
+#tituloHorario, #tituloHorarios {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.dias-semana {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+}
+
+.dias-semana legend {
+    padding: 0;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #d0d5dc;
+}
+
+.opcoes-dias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+}
+
+.opcoes-dias label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    cursor: pointer;
+    color: var(--secundario);
+}
+
+.opcoes-dias label:hover {
+    color: var(--texto);
+}
+
+.opcoes-dias input {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: var(--destaque);
+    cursor: pointer;
+}
+
+@media (max-width: 720px) {
+    #formHorario {
+        grid-template-columns: minmax(0, 1fr);
     }
 }
